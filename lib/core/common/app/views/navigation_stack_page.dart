@@ -3,7 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:shiftly/core/routing/app_router.dart';
-import 'package:shiftly/core/styles/colors.dart';
+import 'package:shiftly/core/styles/app_colors.dart';
 
 @RoutePage()
 class NavigationStackPage extends StatelessWidget {
@@ -40,8 +40,8 @@ class AppNavigationBottomBar extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: .4),
-            blurRadius: 4,
+            color: Colors.black.withValues(alpha: .1),
+            blurRadius: 10,
             offset: const Offset(0, -2),
           ),
         ],
@@ -56,10 +56,23 @@ class AppNavigationBottomBar extends StatelessWidget {
             NavigationBarItem(
               iconData: LucideIcons.house,
               onPressed: () => tabsRouter.setActiveIndex(0),
+              iconColor: tabsRouter.activeIndex == 0
+                  ? AppColors.primaryColor
+                  : AppColors.textPrimary,
             ),
             NavigationBarItem(
-              iconData: LucideIcons.compass,
+              iconData: LucideIcons.calendar,
               onPressed: () => tabsRouter.setActiveIndex(1),
+              iconColor: tabsRouter.activeIndex == 1
+                  ? AppColors.primaryColor
+                  : AppColors.textPrimary,
+            ),
+            NavigationBarItem(
+              iconData: LucideIcons.userRound,
+              onPressed: () => tabsRouter.setActiveIndex(2),
+              iconColor: tabsRouter.activeIndex == 2
+                  ? AppColors.primaryColor
+                  : AppColors.textPrimary,
             ),
           ],
         ),
@@ -73,10 +86,12 @@ class NavigationBarItem extends StatelessWidget {
     super.key,
     required this.iconData,
     required this.onPressed,
+    required this.iconColor,
   });
 
   final IconData iconData;
   final VoidCallback onPressed;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +107,7 @@ class NavigationBarItem extends StatelessWidget {
             onPressed: onPressed,
             icon: Icon(
               iconData,
+              color: iconColor,
             ),
           ),
         ),
